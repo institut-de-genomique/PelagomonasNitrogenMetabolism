@@ -25,9 +25,8 @@ library(tibble)
 ######Figure 1A######
 Nitrate concentrations measured during Tara Oceans expedition. The colour code indicates nitrate concentrations in µmol/l for surface and DCM samples in the upper and bottom part of each dot respectively.
 
-## Input
+## Loading Tara Oceans metadata
 ```{r}
-#loading Tara Oceans metadata
 metadata <- read.table("/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure1/Environmental_metadata.tab", row.names=1)
 tab <-  subset(metadata, select = -c(Latitude, Longitude))
 #Extracting station Names
