@@ -7,7 +7,7 @@ date: '2024-03-21'
 # **Figure 1**
 <br>
 
-## represents the abundance and transcriptomic response of P. calceolata to environmental nitrate concentrations. 3 successives panels are going to be generated.
+## represents the abundance and transcriptomic response of *P. calceolata* to environmental nitrate concentrations. 3 successives panels are going to be generated.
 
 ## Library loading
 ```{r}
