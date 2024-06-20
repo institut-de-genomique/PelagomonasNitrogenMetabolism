@@ -18,11 +18,10 @@ library(DESeq2)
 library(tibble)
 ```
 
-######################################################
-######Figure 1A######
+## Figure 1A
 Nitrate concentrations measured during Tara Oceans expedition. The colour code indicates nitrate concentrations in µmol/l for surface and DCM samples in the upper and bottom part of each dot respectively.
 
-## Input
+### Input
 ```{r}
 #loading Tara Oceans metadata
 metadata <- read.table("/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure1/Environmental_metadata.tab", row.names=1)
@@ -46,7 +45,7 @@ tab$Station_number<- sub("\\D.*", "", tab$Sample_label)
 #merging metadata and coordinates
 tab <- merge(tab, coord[,c(1,3,4)], by.x="Station_number", by.y="ID")
 ```
-##Treatment
+### Treatment
 ```{r}
 #if xend is emppty then it it takes Longitude value
 ifelse(is.na(tab$xend)==T, tab$xend<-tab$Longitude, NA)
@@ -82,7 +81,7 @@ figure_1A_output <- mutate(figure_1A_output,
 
 ```
 
-## Plot and Output
+### Plot and Output
 ```{r}
 ## Figure 1A 
 fig1A_mapNO3 <- ggplot()+
@@ -99,11 +98,10 @@ fig1A_mapNO3
 #output for figure 1A
 figure_1A_output
 ```
-######################################################
-######Figure 1B######
+## Figure 1B
 Relative abundance of P. calceolata in Tara samples estimated from metagenomics reads according to the concentration of nitrate (µM) 
 
-#Inputs & Treatment
+### Inputs & Treatment
 ```{r}
 #tab, generated previously
 tab
@@ -119,7 +117,7 @@ relative_abundance$Sample_label <- gsub('.{2}$', '', relative_abundance$Sample_b
 figure_1B_output <- merge(tab, relative_abundance, by="Sample_bis",all=F)
 
 ```
-## Plot and Output
+### Plot and Output
 ```{r}
 ## Figure 1A 
 fig1B_distri <- ggplot(data=figure_1B_output, aes(x=Nitrate_median, y=relative_abundance,color=Layer)) +
@@ -137,11 +135,10 @@ figure_1B_output
 ```
 
 
-######################################################
-######Figure 1C######
+## Figure 1C
 P. calceolata gene-expression levels between low-nitrate (NO3 < 2 µM, n=69) and high-nitrate samples (NO3 > 2 µM, n=43). Log2FC between low- and high-nitrate samples are given according to their mean expression level (normalized with DESeq2). Differentially expressed genes with p-value < 0.01 and log2FC >1 or < −1 are coloured in blue.
 
-## Input
+### Input
 ```{r}
 #loading raw metatranscriptomic count table
 rawCountTable <- read.table("/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure1/count_table_metaT.tab", check.names=FALSE)
@@ -172,7 +169,7 @@ dim(filter(sampleInfo, nitrate_quantity == "high")) #43 high NO3
 
 ```
 
-## Treatment
+### Treatment
 ```{r}
 #Creating DESeq2 matrix
 se_star_matrix <- DESeqDataSetFromMatrix(countData = rawCountTable,
@@ -206,7 +203,7 @@ top20_genes <- figure_1C_output %>%
   dplyr::slice(1:10)
 ```
 
-## Output
+### Output
 ```{r}
 fig1C_MAplot <- ggplot()+  
   geom_point(data=figure_1C_output, aes(x=log2(baseMean), y=log2FoldChange, color=regulation), size=1)+  
@@ -222,14 +219,14 @@ fig1C_MAplot
 figure_1C_output
 ```
 
-Data Output
+## Data Output
 ```{r}
 write.table(figure_1A_output, file = "/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure1/figure_1A_output.tab",quote = F, sep="\t")
 write.table(figure_1B_output, file = "/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure1/figure_1B_output.tab",quote = F, sep="\t")
 write.table(figure_1C_output, file = "/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure1/figure_1C_output.tab",quote = F, sep="\t")
 ```
 
-Figure Output
+## Figure Output
 ```{r}
 fig1A_mapNO3
 fig1B_distri
