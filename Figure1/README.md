@@ -4,7 +4,7 @@ output: html_document
 date: '2024-03-21'
 ---
 # Figure 1
-Figure 1 represents the abundance and transcriptomic response of P. calceolata to environmental nitrate concentrations. 3 successives panels are going to be generated.
+Figure 1 represents the abundance and transcriptomic response of _P. calceolata_ to environmental nitrate concentrations. 3 successives panels are going to be generated.
 
 ## Library loading
 ```{r}
@@ -19,7 +19,7 @@ library(tibble)
 ```
 
 ## Figure 1A
-Nitrate concentrations measured during Tara Oceans expedition. The colour code indicates nitrate concentrations in µmol/l for surface and DCM samples in the upper and bottom part of each dot respectively.
+Nitrate concentrations measured during _Tara_ Oceans expedition. The colour code indicates nitrate concentrations in µmol/l for surface and DCM samples in the upper and bottom part of each dot respectively.
 
 ### Input
 ```{r}
@@ -99,7 +99,7 @@ fig1A_mapNO3
 figure_1A_output
 ```
 ## Figure 1B
-Relative abundance of P. calceolata in Tara samples estimated from metagenomics reads according to the concentration of nitrate (µM) 
+Relative abundance of _P. calceolata_ in _Tara_ samples estimated from metagenomics reads according to the concentration of nitrate (µM).
 
 ### Inputs & Treatment
 ```{r}
@@ -136,7 +136,7 @@ figure_1B_output
 
 
 ## Figure 1C
-P. calceolata gene-expression levels between low-nitrate (NO3 < 2 µM, n=69) and high-nitrate samples (NO3 > 2 µM, n=43). Log2FC between low- and high-nitrate samples are given according to their mean expression level (normalized with DESeq2). Differentially expressed genes with p-value < 0.01 and log2FC >1 or < −1 are coloured in blue.
+_P. calceolata_ gene-expression levels between low-nitrate (NO3 < 2 µM, n=69) and high-nitrate samples (NO3 > 2 µM, n=43). Log2FC between low- and high-nitrate samples are given according to their mean expression level (normalized with DESeq2). Differentially expressed genes with p-value < 0.01 and log2FC >1 or < −1 are coloured in blue.
 
 ### Input
 ```{r}
