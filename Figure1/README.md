@@ -3,11 +3,8 @@ title: "Figure1"
 output: html_document
 date: '2024-03-21'
 ---
-
-# **Figure 1**
-<br>
-
-## represents the abundance and transcriptomic response of *P. calceolata* to environmental nitrate concentrations. 3 successives panels are going to be generated.
+# Figure 1
+Figure 1 represents the abundance and transcriptomic response of P. calceolata to environmental nitrate concentrations. 3 successives panels are going to be generated.
 
 ## Library loading
 ```{r}
@@ -25,8 +22,9 @@ library(tibble)
 ######Figure 1A######
 Nitrate concentrations measured during Tara Oceans expedition. The colour code indicates nitrate concentrations in µmol/l for surface and DCM samples in the upper and bottom part of each dot respectively.
 
-## Loading Tara Oceans metadata
+## Input
 ```{r}
+#loading Tara Oceans metadata
 metadata <- read.table("/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure1/Environmental_metadata.tab", row.names=1)
 tab <-  subset(metadata, select = -c(Latitude, Longitude))
 #Extracting station Names
