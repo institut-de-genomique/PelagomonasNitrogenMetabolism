@@ -3,7 +3,7 @@ title: "Figure3"
 output: html_document
 date: '2024-03-21'
 ---
-
+# Dans la nouvelle version, c'est la figure 4
 Figure 3 shows the growth and transcriptomic response of P. calceolata RCC100 cultivated with different nitrogen compounds. Following codes generates MA-plot and Venn diagram from transciptomic table for RCC100.
 
 A)-Growth of P. calceolata under various nitrogen sources (882 µM NO3-, 882 µM NH4+, 441 µM urea, 882 µM cyanate) measured by fluorescence converted into estimated number of cell. 
