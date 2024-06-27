@@ -5,11 +5,8 @@ date: '2024-03-21'
 ---
 Figure 4 shows the transcriptomic response of P. calceolata RCC100 cultivated with different nitrogen compounds. Following codes generates MA-plot and Venn diagram from transciptomic table for RCC100.
 
-A)-Growth of P. calceolata under various nitrogen sources (882 µM NO3-, 882 µM NH4+, 441 µM urea, 882 µM cyanate) measured by fluorescence converted into estimated number of cell. 
-## en fait on enlève les courbes de croissances, à voir, en attendant je garde les numéros de la version bioRxiv
-
-B, C, D) Differentially expressed genes in 882 µM of ammonium (B), 441 µM of urea (C) and 882 µM of cyanate (D) compared to 882 µM of nitrate. Genes with p-value < 0.01 and log2FC > 2 are coloured. 
-E, F) Euler diagram of genes overexpressed (E) or under expressed (F) in at least one of the alternative nitrogen sources.
+A, B, C) Differentially expressed genes in 882 µM of ammonium (B), 441 µM of urea (C) and 882 µM of cyanate (D) compared to 882 µM of nitrate. Genes with p-value < 0.01 and log2FC > 2 are coloured. 
+D left, Dright) Euler diagram of genes overexpressed (E) or under expressed (F) in at least one of the alternative nitrogen sources.  
 
 ## Library loading
 ```{r}
