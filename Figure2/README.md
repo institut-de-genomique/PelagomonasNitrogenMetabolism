@@ -7,7 +7,7 @@ Metadata associated to transcriptomes of RCC100 : metadata_transcriptomic_RCC100
 The following code is executed on R version 4.1.1  
 
 ## Required R libraries
-```{r}
+```r
 library(DESeq2)
 library(dplyr)
 library(ggrepel)
@@ -21,7 +21,7 @@ library(erer)
 Differentially expressed genes of _P. calceolata_ RCC100 in 441 µM (A) and 220 µM (B) of nitrate and RCC697 in 220µM (C) and 50 µM (D) compared to 880 µM of nitrate. Genes with p-value < 0.01 and log2FC > 2 are coloured. 
 
 ### Input
-```{r}
+```r
 #for A and B
 transcriptomic_count_RCC100_nitrogen <- read.table("20230427_RCC100-Nitrate_transcriptomes_rawcounts.tsv")
 metadata <- read.table("metadata_transcriptomic_RCC100_nitrogen.tab")
@@ -67,7 +67,7 @@ top20_genes_2A <- figure_2A_output %>%
 ```
 
 ### Figure 2B
-```{r}
+```r
 #subset the count table
 rawCountTable <- subset(transcriptomic_count_RCC100_nitrogen, select = c("NO3_800_R1", "NO3_800_R2", "NO3_800_R3"
                              , "NO3_200_R1", "NO3_200_R2", "NO3_200_R3"))
@@ -104,7 +104,7 @@ top20_genes_2B <- figure_2B_output %>%
   dplyr::slice(1:10)
 ```
 ### Figure 2C
-```{r}
+```r
 figure_2C_output <- as.data.frame(results_RCC697_200)
 figure_2C_output <- mutate(figure_2C_output, regulation = case_when(log2FoldChange > 2 & padj < 0.01 ~ "upregulated"
                                             ,log2FoldChange < -2 & padj < 0.01 ~ "downregulated"))
@@ -119,7 +119,7 @@ top20_genes_2C
 ```
 
 ### Figure 2D  
-```{r}
+```r
 figure_2D_output <- as.data.frame(results_RCC697_50)
 figure_2D_output <- mutate(figure_2D_output, regulation = case_when(log2FoldChange > 2 & padj < 0.01 ~ "upregulated"
                                             ,log2FoldChange < -2 & padj < 0.01 ~ "downregulated"))
@@ -135,7 +135,7 @@ top20_genes_2D
 Euler diagram of DEGs in RCC100 and RCC697. The number of upregulated and downregulated genes is indicated.  
 
 ### Figure 2E  
-```{r}
+```r
 #subset results from DEG
 up_DEG_400 <-subset(as.data.frame(results_RCC100_400),log2FoldChange > 2 & padj < 0.01)
 down_DEG_400 <-subset(as.data.frame(results_RCC100_400),log2FoldChange < -2 & padj < 0.01)
@@ -164,7 +164,7 @@ length(setdiff(rownames(up_DEG_400), rownames(up_DEG_200)))
 length(setdiff(rownames(down_DEG_400), rownames(down_DEG_200)))
 ```
 ### Figure 2F
-```{r}
+```r
 #subset results from DEG
 up_DEG_50 <-subset(as.data.frame(results_RCC697_50),log2FoldChange > 2 & padj < 0.01)
 down_DEG_50 <-subset(as.data.frame(results_RCC697_50),log2FoldChange < -2 & padj < 0.01)
@@ -194,7 +194,7 @@ length(setdiff(rownames(down_DEG_50), rownames(down_DEG_200_697)))
 ```
 
 ## Figure and Data output
-```{r}
+```r
 #Figure 2A
 fig2A_MAplot <- ggplot()+  
   geom_point(data=figure_2A_output, aes(x=log2(baseMean), y=log2FoldChange, color=regulation), size=1)+  
