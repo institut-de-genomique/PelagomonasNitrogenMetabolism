@@ -10,7 +10,7 @@ Coordinates of Tara Pacific stations : Coordinates_islands_TO-TP.txt
 The following code was executed on R version 4.1.1
 
 ## Library loading
-```{r}
+```r
 library(ggplot2)
 library(tidyr) 
 library(dplyr)
@@ -25,7 +25,7 @@ library(tibble)
 Nitrate concentrations measured during _Tara_ Oceans expedition. The colour code indicates nitrate concentrations in µmol/l for surface and DCM samples in the upper and bottom part of each dot respectively.
 
 ### Inputs and processing
-```{r}
+```r
 #loading Tara Oceans metadata
 metadata <- read.table("Environmental_metadata.tab", row.names=1)
 tab <-  subset(metadata, select = -c(Latitude, Longitude))
@@ -81,7 +81,7 @@ figure_1A_output <- mutate(figure_1A_output,
 ```
 
 ### Plot and Output
-```{r}
+```r
 ## Figure 1A 
 fig1A_mapNO3 <- ggplot()+
     geom_polygon(data=mapWorld, aes(x=long, y=lat, group = group),fill="grey70",color="grey70") + 
@@ -102,7 +102,7 @@ figure_1A_output
 Relative abundance of _P. calceolata_ in _Tara_ samples estimated from metagenomics reads according to the concentration of nitrate (µM).
 
 ### Inputs and processing
-```{r}
+```r
 #tab, generated previously
 tab
 #for tab, create Sample_bis to match Sample_bis column from relative_abundance
@@ -118,7 +118,7 @@ figure_1B_output <- merge(tab, relative_abundance, by="Sample_bis",all=F)
 
 ```
 ### Plot and Output
-```{r}
+```r
 fig1B_distri <- ggplot(data=figure_1B_output, aes(x=Nitrate_median, y=relative_abundance,color=Layer)) +
   geom_point()+
   scale_color_manual(values = c("#A4262C", "#1d3084ff"))+
@@ -136,7 +136,7 @@ figure_1B_output
 _P. calceolata_ gene-expression levels between low-nitrate (NO3 < 2 µM, n=69) and high-nitrate samples (NO3 > 2 µM, n=43). Log2FC between low- and high-nitrate samples are given according to their mean expression level (normalized with DESeq2). Differentially expressed genes with p-value < 0.01 and log2FC >1 or < −1 are coloured in blue.
 
 ### Input and processing
-```{r}
+```r
 #loading raw metatranscriptomic count table
 rawCountTable <- read.table("20230427_RCC100-Nitrate_transcriptomes_rawcounts.tsv", check.names=FALSE)
 
@@ -197,7 +197,7 @@ top20_genes <- figure_1C_output %>%
 ```
 
 ### Plot and Output
-```{r}
+```r
 fig1C_MAplot <- ggplot()+  
   geom_point(data=figure_1C_output, aes(x=log2(baseMean), y=log2FoldChange, color=regulation), size=1)+  
   geom_text_repel(data=top20_genes, aes(x=log2(baseMean), y=log2FoldChange, label=Gene), size=3, point.size = NA) +
