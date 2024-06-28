@@ -1,8 +1,8 @@
 # Figure 1
 This directory contains the files and scripts to generate Figure 1 of the article.   
 Input files are :  
-Gene expression levels of P. calceolata RCC100 in Tara samples : https://zenodo.org/records/6983365  
-Abundance of Pelagomonas calceolata RCC100 in Tara Oceans samples : PelagoV4_metaG_relative_abundance.tab  in this directory  
+Gene expression levels of *Pelagomonas calceolata* RCC100 in Tara samples : https://zenodo.org/records/6983365  
+Abundance of *Pelagomonas calceolata* RCC100 in Tara Oceans samples : PelagoV4_metaG_relative_abundance.tab  in this directory  
 Metadata of Tara Oceans expedition : Environmental_metadata.tab in this directory  
 Coordinates of Tara Oceans stations : TaraCoord.txt in this direcory  
 Coordinates of Tara Pacific stations : Coordinates_islands_TO-TP.txt 
