@@ -1,15 +1,11 @@
----
-title: "Figure4"
-output: html_document
-date: '2024-03-21'
----
+# Figure 4
 Figure 4 shows the transcriptomic response of P. calceolata RCC100 cultivated with different nitrogen compounds. Following codes generates MA-plot and Venn diagram from transciptomic table for RCC100.
 
 A, B, C) Differentially expressed genes in 882 µM of ammonium (B), 441 µM of urea (C) and 882 µM of cyanate (D) compared to 882 µM of nitrate. Genes with p-value < 0.01 and log2FC > 2 are coloured. 
 D left, Dright) Euler diagram of genes overexpressed (E) or under expressed (F) in at least one of the alternative nitrogen sources.  
 
 ## Library loading
-```{r}
+```r
 library(DESeq2)
 library(dplyr)
 library(ggplot2)
@@ -19,14 +15,14 @@ library(erer)
 ```
 
 ## Input
-```{r}
+```r
 transcriptomic_count_RCC100_nitrogen <- read.table("/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/transcriptomic_count_RCC100_nitrogen.tab")
 
 metadata <- read.table("/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/metadata_transcriptomic_RCC100_nitrogen.tab")
 ```
 
 ## Treatment
-```{r}
+```r
 #subset the count table
 rawCountTable <- subset(transcriptomic_count_RCC100_nitrogen, select = c(
                               "NO3_800_R1", "NO3_800_R2", "NO3_800_R3"
@@ -56,7 +52,7 @@ res2_NO3_NH4 <- lfcShrink(dds, coef="Source_NH4_vs_NO3", type="apeglm")
 ```
 
 Figure 4A
-```{r}
+```r
 #treat result to generate MA plot
 figure_4A_output <- as.data.frame(res2_NO3_NH4)
 figure_4A_output <- mutate(figure_3B_output, regulation = case_when(log2FoldChange > 2 & padj<0.01 ~ "upregulated"
@@ -73,7 +69,7 @@ top20_genes_3B <- figure_3B_output %>%
 
 
 Figure 4B
-```{r}
+```r
 #treat result to generate MA plot
 figure_4B_output <- as.data.frame(res2_NO3_Urea)
 figure_4B_output <- mutate(figure_3C_output, regulation = case_when(log2FoldChange > 2 & padj<0.01 ~ "upregulated"
@@ -90,7 +86,7 @@ top20_genes_3C <- figure_3C_output %>%
 ```
 
 Figure 4C
-```{r}
+```r
 #treat result to generate MA plot
 figure_4C_output <- as.data.frame(res2_NO3_Cyanate)
 figure_4C_output <- mutate(figure_3D_output, regulation = case_when(log2FoldChange > 2 & padj<0.01 ~ "upregulated"
@@ -108,7 +104,7 @@ top20_genes_3D <- figure_3D_output %>%
 
 
 Figure 4D left
-```{r}
+```r
 up_DEG_Cyanate <- subset(as.data.frame(res2_NO3_Cyanate),log2FoldChange > 2 & padj < 0.01)
 up_DEG_NH4 <- subset(as.data.frame(res2_NO3_NH4),log2FoldChange > 2 & padj < 0.01)
 up_DEG_Urea <- subset(as.data.frame(res2_NO3_Urea),log2FoldChange > 2 & padj < 0.01)
@@ -122,7 +118,7 @@ figure_4Dl_output =
 ```
 
 Figure 4D right
-```{r}
+```r
 down_DEG_Cyanate <- subset(as.data.frame(res2_NO3_Cyanate),log2FoldChange < -2 & padj < 0.01)
 down_DEG_NH4 <- subset(as.data.frame(res2_NO3_NH4),log2FoldChange < -2 & padj < 0.01)
 down_DEG_Urea <- subset(as.data.frame(res2_NO3_Urea),log2FoldChange < -2 & padj < 0.01)
@@ -136,7 +132,7 @@ figure_4Dr_output =
 ```
 
 ## Output
-```{r}
+```r
 #figure 4A
 fig4A_MAplot <- ggplot()+  
   geom_point(data=figure_4A_output, aes(x=log2(baseMean), y=log2FoldChange, color=regulation), size=1)+  
