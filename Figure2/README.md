@@ -20,7 +20,7 @@ library(erer)
 ## Panels A to D
 Differentially expressed genes of _P. calceolata_ RCC100 in 441 µM (A) and 220 µM (B) of nitrate and RCC697 in 220µM (C) and 50 µM (D) compared to 880 µM of nitrate. Genes with p-value < 0.01 and log2FC > 2 are coloured. 
 
-## Input
+### Input
 ```{r}
 #for A and B
 transcriptomic_count_RCC100_nitrogen <- read.table("20230427_RCC100-Nitrate_transcriptomes_rawcounts.tsv")
@@ -29,7 +29,7 @@ metadata <- read.table("metadata_transcriptomic_RCC100_nitrogen.tab")
 results_RCC697_200 <- read.table("results_RCC697_200.tab")
 results_RCC697_50 <- read.table("results_RCC697_50.tab")
 ```
-## Figure 2A
+### Figure 2A
 ```
 #subset the count table
 rawCountTable <- subset(transcriptomic_count_RCC100_nitrogen, select = c("NO3_800_R1", "NO3_800_R2", "NO3_800_R3"
@@ -66,7 +66,7 @@ top20_genes_2A <- figure_2A_output %>%
   dplyr::slice(1:10)
 ```
 
-## Figure 2B
+### Figure 2B
 ```{r}
 #subset the count table
 rawCountTable <- subset(transcriptomic_count_RCC100_nitrogen, select = c("NO3_800_R1", "NO3_800_R2", "NO3_800_R3"
@@ -103,7 +103,7 @@ top20_genes_2B <- figure_2B_output %>%
   arrange(desc(abs(log2FoldChange))) %>% 
   dplyr::slice(1:10)
 ```
-## Figure 2C
+### Figure 2C
 ```{r}
 figure_2C_output <- as.data.frame(results_RCC697_200)
 figure_2C_output <- mutate(figure_2C_output, regulation = case_when(log2FoldChange > 2 & padj < 0.01 ~ "upregulated"
@@ -118,7 +118,7 @@ top20_genes_2C
 
 ```
 
-## Figure 2D  
+### Figure 2D  
 ```{r}
 figure_2D_output <- as.data.frame(results_RCC697_50)
 figure_2D_output <- mutate(figure_2D_output, regulation = case_when(log2FoldChange > 2 & padj < 0.01 ~ "upregulated"
@@ -131,8 +131,10 @@ top20_genes_2D <- figure_2D_output %>%
   dplyr::slice(1:10)
 top20_genes_2D
 ```
-## Figure E  
-Euler diagram of DEGs in RCC100. The number of upregulated and downregulated genes is indicated.  
+## Panels E and F   
+Euler diagram of DEGs in RCC100 and RCC697. The number of upregulated and downregulated genes is indicated.  
+
+### Figure 2E  
 ```{r}
 #subset results from DEG
 up_DEG_400 <-subset(as.data.frame(results_RCC100_400),log2FoldChange > 2 & padj < 0.01)
@@ -161,8 +163,7 @@ length(setdiff(rownames(up_DEG_400), rownames(up_DEG_200)))
 #down-regulated in 400 µM only
 length(setdiff(rownames(down_DEG_400), rownames(down_DEG_200)))
 ```
-## Figure 2F
-Euler diagram of DEGs in RCC697. The number of upregulated and downregulated genes is indicated.  
+### Figure 2F
 ```{r}
 #subset results from DEG
 up_DEG_50 <-subset(as.data.frame(results_RCC697_50),log2FoldChange > 2 & padj < 0.01)
