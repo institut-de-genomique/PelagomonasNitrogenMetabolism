@@ -1,10 +1,13 @@
----
-title: "Figure1"
-output: html_document
-date: '2024-03-21'
----
 # Figure 1
-Figure 1 represents the abundance and transcriptomic response of _P. calceolata_ to environmental nitrate concentrations. 3 successives panels are going to be generated.
+This directory contains the files and scripts to generate Figure 1 of the article.   
+Input files are :  
+Gene expression levels of P. calceolata RCC100 in Tara samples : https://zenodo.org/records/6983365  
+Abundance of Pelagomonas calceolata RCC100 in Tara Oceans samples : PelagoV4_metaG_relative_abundance.tab  in this directory
+Metadata of Tara Oceans expedition : Environmental_metadata.tab in this directory  
+Coordinates of Tara Oceans stations : TaraCoord.txt in this direcory  
+Coordinates of Tara Pacific stations : Coordinates_islands_TO-TP.txt 
+
+The following code was executed on R version 4.1.1
 
 ## Library loading
 ```{r}
@@ -21,10 +24,10 @@ library(tibble)
 ## Figure 1A
 Nitrate concentrations measured during _Tara_ Oceans expedition. The colour code indicates nitrate concentrations in µmol/l for surface and DCM samples in the upper and bottom part of each dot respectively.
 
-### Input
+### Inputs and processing
 ```{r}
 #loading Tara Oceans metadata
-metadata <- read.table("/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure1/Environmental_metadata.tab", row.names=1)
+metadata <- read.table("Environmental_metadata.tab", row.names=1)
 tab <-  subset(metadata, select = -c(Latitude, Longitude))
 #Extracting station Names
 row.names(tab) -> tab$Names
@@ -34,20 +37,18 @@ row.names(tab) -> tab$Names
 mapWorld <- map_data('world')
 
 #loading coordinates and arrows from Tara Oceans
-coord<-read.table("/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure1/TaraCoord.txt",sep="\t",h=T,stringsAsFactors = F)
+coord<-read.table("TaraCoord.txt",sep="\t",h=T,stringsAsFactors = F)
 #merging metadata and coordinates
 tab <- merge(tab, coord[,c(1:5)], by.x="Sample_label", by.y="Stations", all = T)
 
 #loading additionnal coordinates from Tara Oceans
-coord<-read.table("/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure1/Coordinates_islands_TO-TP.txt",sep="\t",h=T,stringsAsFactors = F)
+coord<-read.table("Coordinates_islands_TO-TP.txt",sep="\t",h=T,stringsAsFactors = F)
 #Extracting station numbers
 tab$Station_number<- sub("\\D.*", "", tab$Sample_label)
 #merging metadata and coordinates
 tab <- merge(tab, coord[,c(1,3,4)], by.x="Station_number", by.y="ID")
-```
-### Treatment
-```{r}
-#if xend is emppty then it it takes Longitude value
+
+#if xend is emppty then it takes Longitude value
 ifelse(is.na(tab$xend)==T, tab$xend<-tab$Longitude, NA)
 ifelse(is.na(tab$yend)==T, tab$yend<-tab$Latitude, NA)
 
@@ -77,8 +78,6 @@ figure_1A_output <- mutate(figure_1A_output,
        start = case_when(
          Layer=="DCM" ~ -pi/2,
          Layer=="SUR" ~ pi/2))
-
-
 ```
 
 ### Plot and Output
@@ -98,10 +97,11 @@ fig1A_mapNO3
 #output for figure 1A
 figure_1A_output
 ```
+
 ## Figure 1B
 Relative abundance of _P. calceolata_ in _Tara_ samples estimated from metagenomics reads according to the concentration of nitrate (µM).
 
-### Inputs & Treatment
+### Inputs and processing
 ```{r}
 #tab, generated previously
 tab
@@ -109,7 +109,7 @@ tab
 tab$Sample_bis <-gsub('.{2}$', '', tab$Names)
 
 #loading metagenomic relative abundance data (from Guérin et al. 2020)
-relative_abundance <- read.table("/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure1/PelagoV4_metaG_relative_abundance.tab", header=T)
+relative_abundance <- read.table("PelagoV4_metaG_relative_abundance.tab", header=T)
 
 #for Tara Oceans samples, extracting sample label 
 relative_abundance$Sample_label <- gsub('.{2}$', '', relative_abundance$Sample_bis)
@@ -119,7 +119,6 @@ figure_1B_output <- merge(tab, relative_abundance, by="Sample_bis",all=F)
 ```
 ### Plot and Output
 ```{r}
-## Figure 1A 
 fig1B_distri <- ggplot(data=figure_1B_output, aes(x=Nitrate_median, y=relative_abundance,color=Layer)) +
   geom_point()+
   scale_color_manual(values = c("#A4262C", "#1d3084ff"))+
@@ -133,15 +132,13 @@ fig1B_distri
 #output for figure 1B
 figure_1B_output
 ```
-
-
 ## Figure 1C
 _P. calceolata_ gene-expression levels between low-nitrate (NO3 < 2 µM, n=69) and high-nitrate samples (NO3 > 2 µM, n=43). Log2FC between low- and high-nitrate samples are given according to their mean expression level (normalized with DESeq2). Differentially expressed genes with p-value < 0.01 and log2FC >1 or < −1 are coloured in blue.
 
-### Input
+### Input and processing
 ```{r}
 #loading raw metatranscriptomic count table
-rawCountTable <- read.table("/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure1/count_table_metaT.tab", check.names=FALSE)
+rawCountTable <- read.table("20230427_RCC100-Nitrate_transcriptomes_rawcounts.tsv", check.names=FALSE)
 
 #loading metadata
 sampleInfo <- metadata
@@ -167,10 +164,6 @@ dim(sampleInfo)
 dim(filter(sampleInfo, nitrate_quantity == "low")) #69 low NO3
 dim(filter(sampleInfo, nitrate_quantity == "high")) #43 high NO3
 
-```
-
-### Treatment
-```{r}
 #Creating DESeq2 matrix
 se_star_matrix <- DESeqDataSetFromMatrix(countData = rawCountTable,
                                          colData = sampleInfo,
@@ -203,7 +196,7 @@ top20_genes <- figure_1C_output %>%
   dplyr::slice(1:10)
 ```
 
-### Output
+### Plot and Output
 ```{r}
 fig1C_MAplot <- ggplot()+  
   geom_point(data=figure_1C_output, aes(x=log2(baseMean), y=log2FoldChange, color=regulation), size=1)+  
@@ -217,26 +210,4 @@ fig1C_MAplot <- ggplot()+
 
 fig1C_MAplot
 figure_1C_output
-```
-
-## Data Output
-```{r}
-write.table(figure_1A_output, file = "/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure1/figure_1A_output.tab",quote = F, sep="\t")
-write.table(figure_1B_output, file = "/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure1/figure_1B_output.tab",quote = F, sep="\t")
-write.table(figure_1C_output, file = "/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure1/figure_1C_output.tab",quote = F, sep="\t")
-```
-
-## Figure Output
-```{r}
-fig1A_mapNO3
-fig1B_distri
-fig1C_MAplot
-
-#Figure output
-#All figure are saved in one file
-pdf("/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure1/Figure_1.pdf", width = 9, height = 6)
-print(fig1A_mapNO3)
-print(fig1B_distri)
-print(fig1C_MAplot)
-dev.off() 
 ```
