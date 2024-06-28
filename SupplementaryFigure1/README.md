@@ -1,7 +1,7 @@
 # Supplementary Figure 1  
-This directory contains the files and scripts to generate Supplementary Figure 1 (panels C and D) of the article.
+This directory contains the files and scripts to generate Supplementary Figure 1 (panels C and D) of the article.  
 Input files are :  
-Chlorophyll a fluorescence for RCC100 and RCC697 in different culture conditions:  Data-SupFig1.tab  
+Chlorophyll a fluorescence for RCC100 and RCC697 in different culture conditions:  Data-SupFig1.tab in this directory  
 
 The following code is executed on R version 4.1.1  
 
