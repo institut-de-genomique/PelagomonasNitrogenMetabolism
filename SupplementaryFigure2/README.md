@@ -3,13 +3,15 @@ This directory contains the files and script to generate Supplementary Figure 2 
 Input files are :  
 Gene expression levels of *P. calceolata* RCC100 and 697 in different nitrate conditions : https://zenodo.org/uploads/12582059  
 
+The following code is executed on R version 4.1.1  
+
 ## Data loading
-```{r}
+```r
 TPM_table <- read.table("20230427_RCC100-Nitrate_transcriptomes_TPM.tsv")
 ```
 
 ## A) Cluster Dendrogram
-```{r}
+```r
 distance <- dist(t(TPM_table))
 sup_fig2_A <- hclust(distance)
 plot(sup_fig2_A)
@@ -17,7 +19,7 @@ plot(sup_fig2_A)
 ```
 
 ## B) Correlation plot
-```{r}
+```r
 library(corrplot)
 library(RColorBrewer)
 corr_matrix <- cor(as.matrix(TPM_table))
@@ -27,7 +29,7 @@ sup_fig2_B <- corrplot(corr_matrix, method="circle",is.corr = FALSE,col = col2(8
 sup_fig2_B
 ```
 ## Output
-```{r}
+```r
 #Data output
 #write.table(as.data.frame(distance), file = "/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/SupFigure2/output_supFig2_A",quote = F, sep="\t")
 write.table(corr_matrix, file = "/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/SupFigure2/output_supFig2_B",quote = F, sep="\t")
