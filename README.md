@@ -1,4 +1,4 @@
-# Nitrogen metabolism in the picoalgae Pelagomonas calceolata: disentangling cyanate lyase function under different nutrient conditions  
+# Nitrogen metabolism in the picoalgae *Pelagomonas calceolata*: disentangling cyanate lyase function under different nutrient conditions  
 
 Nina Guérin1,2, Chloé Seyman1,2, Céline Orvain1,2, Laurie Bertrand1,2, Priscillia Gourvil3, Ian Probert3, Benoit Vacherie4, Élodie Brun4, Ghislaine Magdelenat4, Karine Labadie4, Patrick Wincker1,2, Adrien Thurotte1,2, Quentin Carradec*1,2  
 1 Génomique Métabolique, Genoscope, Institut François Jacob, CEA, CNRS, Univ Evry, Université Paris-Saclay, 91057, Evry, France  
