@@ -1,15 +1,18 @@
-#Supplementary Figure 1
+# Supplementary Figure 1  
 This directory contains the files and scripts to generate Supplementary Figure 1 (panels C and D) of the article.
 Input files are :  
 Chlorophyll a fluorescence for RCC100 and RCC697 in different culture conditions:  Data-SupFig1.tab  
 
 The following code is executed on R version 4.1.1  
-```{r}
 
+```{r}
+#data loading
 tab<-read.table("Data-SupFig1.tab",h=T,sep="\t")
+
 #Miniman, maximum and average for each condition, strain and time point
 tab2<-do.call(data.frame,aggregate(tab,Fluorescence~Condition+Day+Strain,function(x){c(Min=min(x),Max=max(x),Mean=mean(x))}))
 tab2$Condition<-paste(tab2$Condition,"µM")
+
 #plot for panels C and D
 pdf(file="GrowthCurvesLowN.pdf",height=9)
 ggplot(tab2)+
