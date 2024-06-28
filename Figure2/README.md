@@ -1,15 +1,12 @@
----
-title: "Figure2"
-output: html_document
-date: '2024-03-25'
----
 # Figure 2
-Figure 2 represents the transcriptomic response of _P. calceolata_ RCC100 and RCC697 to low-nitrate cultures. 6 successives panels are going to be generated. Following codes generates MA-plots and Euler diagrams from transciptomic table for RCC100 and from DEG table for RCC697.
+This directory contains the files and scripts to generate Figure 2 of the article.  
+Input files are :  
+Gene expression levels of P. calceolata RCC100 and RCC697 in different nitrate conditions : https://zenodo.org/uploads/12582059  
+Metadata associated to transcriptomes of RCC100 : metadata_transcriptomic_RCC100_nitrogen.tab in this directory  
 
-A-D) Differentially expressed genes of _P. calceolata_ RCC100 in 441 µM (A) and 220 µM (B) of nitrate and RCC697 in 220µM (C) and 50 µM (D) compared to 880 µM of nitrate. Genes with p-value < 0.01 and log2FC > 2 are coloured. 
-D, E) Euler diagram of DEGs in RCC100 (E) and RCC697 (F). The number of upregulated and downregulated genes is indicated.
+The following code is executed on R version 4.1.1  
 
-## Library loading
+## Required R libraries
 ```{r}
 library(DESeq2)
 library(dplyr)
@@ -20,22 +17,20 @@ library(eulerr)
 library(erer)
 ```
 
+## Panels A to D
+Differentially expressed genes of _P. calceolata_ RCC100 in 441 µM (A) and 220 µM (B) of nitrate and RCC697 in 220µM (C) and 50 µM (D) compared to 880 µM of nitrate. Genes with p-value < 0.01 and log2FC > 2 are coloured. 
+
 ## Input
 ```{r}
 #for A and B
-transcriptomic_count_RCC100_nitrogen <- read.table("/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/transcriptomic_count_RCC100_nitrogen.tab")
-
-metadata <- read.table("/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/metadata_transcriptomic_RCC100_nitrogen.tab")
-
+transcriptomic_count_RCC100_nitrogen <- read.table("20230427_RCC100-Nitrate_transcriptomes_rawcounts.tsv")
+metadata <- read.table("metadata_transcriptomic_RCC100_nitrogen.tab")
 #for C and D
-results_RCC697_200 <- read.table("/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure2/results_RCC697_200.tab")
-results_RCC697_50 <- read.table("/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure2/results_RCC697_50.tab")
+results_RCC697_200 <- read.table("results_RCC697_200.tab")
+results_RCC697_50 <- read.table("results_RCC697_50.tab")
 ```
-
-## Treatment
-
-### Figure 2A
-```{r}
+## Figure 2A
+```
 #subset the count table
 rawCountTable <- subset(transcriptomic_count_RCC100_nitrogen, select = c("NO3_800_R1", "NO3_800_R2", "NO3_800_R3"
                              , "NO3_400_R1", "NO3_400_R2", "NO3_400_R3"))
@@ -69,10 +64,9 @@ top20_genes_2A <- figure_2A_output %>%
   group_by(regulation) %>%
   arrange(desc(abs(log2FoldChange))) %>% 
   dplyr::slice(1:10)
-
 ```
 
-### Figure 2B
+## Figure 2B
 ```{r}
 #subset the count table
 rawCountTable <- subset(transcriptomic_count_RCC100_nitrogen, select = c("NO3_800_R1", "NO3_800_R2", "NO3_800_R3"
@@ -109,7 +103,7 @@ top20_genes_2B <- figure_2B_output %>%
   arrange(desc(abs(log2FoldChange))) %>% 
   dplyr::slice(1:10)
 ```
-### Figure 2C
+## Figure 2C
 ```{r}
 figure_2C_output <- as.data.frame(results_RCC697_200)
 figure_2C_output <- mutate(figure_2C_output, regulation = case_when(log2FoldChange > 2 & padj < 0.01 ~ "upregulated"
@@ -124,7 +118,7 @@ top20_genes_2C
 
 ```
 
-### Figure 2D
+## Figure 2D  
 ```{r}
 figure_2D_output <- as.data.frame(results_RCC697_50)
 figure_2D_output <- mutate(figure_2D_output, regulation = case_when(log2FoldChange > 2 & padj < 0.01 ~ "upregulated"
@@ -137,7 +131,8 @@ top20_genes_2D <- figure_2D_output %>%
   dplyr::slice(1:10)
 top20_genes_2D
 ```
-### Figure E
+## Figure E  
+Euler diagram of DEGs in RCC100. The number of upregulated and downregulated genes is indicated.  
 ```{r}
 #subset results from DEG
 up_DEG_400 <-subset(as.data.frame(results_RCC100_400),log2FoldChange > 2 & padj < 0.01)
@@ -166,7 +161,8 @@ length(setdiff(rownames(up_DEG_400), rownames(up_DEG_200)))
 #down-regulated in 400 µM only
 length(setdiff(rownames(down_DEG_400), rownames(down_DEG_200)))
 ```
-### Figure 2F
+## Figure 2F
+Euler diagram of DEGs in RCC697. The number of upregulated and downregulated genes is indicated.  
 ```{r}
 #subset results from DEG
 up_DEG_50 <-subset(as.data.frame(results_RCC697_50),log2FoldChange > 2 & padj < 0.01)
@@ -244,8 +240,6 @@ fig2D_MAplot <- ggplot()+
   scale_color_manual(values = c("#6B0F1F","#899D5F"), na.value = "grey80",name = "padj", labels = c("underexpressed in 50 µM","overexpressed in 50 µM",  "non significative"))
 fig2D_MAplot
 
-
-
 #Figure 2E
 fig2E_euler <- plot(euler(figure_2E_output), quantities = TRUE, fills = c("#B86B37","#A3432A") #E5C038
      , main="RCC100 : DEG in low nitrate")
@@ -256,18 +250,17 @@ fig2F_euler <- plot(euler(figure_2F_output), quantities = TRUE, fills = c("#B86B
      , main="RCC697 : DEG in low nitrate")
 fig2F_euler
 
-
 #Data output
-write.table(figure_2A_output, file = "/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure2/figure_2A_output.tab",quote = F, sep="\t")
-write.table(figure_2B_output, file = "/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure2/figure_2B_output.tab",quote = F, sep="\t")
-write.table(figure_2C_output, file = "/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure2/figure_2C_output.tab",quote = F, sep="\t")
-write.table(figure_2D_output, file = "/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure2/figure_2D_output.tab",quote = F, sep="\t")
-write.list(figure_2E_output, file = "/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure2/figure_2E_output.tab",quote = F)
-write.list(figure_2F_output, file = "/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure2/figure_2F_output.tab",quote = F)
+write.table(figure_2A_output, file = "figure_2A_output.tab",quote = F, sep="\t")
+write.table(figure_2B_output, file = "figure_2B_output.tab",quote = F, sep="\t")
+write.table(figure_2C_output, file = "figure_2C_output.tab",quote = F, sep="\t")
+write.table(figure_2D_output, file = "figure_2D_output.tab",quote = F, sep="\t")
+write.list(figure_2E_output, file = "figure_2E_output.tab",quote = F)
+write.list(figure_2F_output, file = "figure_2F_output.tab",quote = F)
 
 #Figure output
 #All figure are saved in one file
-pdf("/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/Figure2/Figure_2.pdf", width = 9, height = 6)
+pdf("Figure_2.pdf", width = 9, height = 6)
 print(fig2A_MAplot)
 print(fig2B_MAplot)
 print(fig2C_MAplot)
@@ -275,6 +268,5 @@ print(fig2D_MAplot)
 print(fig2E_euler)
 print(fig2F_euler)
 dev.off() 
-
 ```
 
