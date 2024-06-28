@@ -1,4 +1,4 @@
-# Supplementary figure 2
+# Supplementary Figure 2
 This directory contains the files and script to generate Supplementary Figure 2 of the article.  
 Input files are :  
 Gene expression levels of *P. calceolata* RCC100 and 697 in different nitrate conditions : https://zenodo.org/uploads/12582059  
