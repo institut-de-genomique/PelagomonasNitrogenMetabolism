@@ -10,11 +10,11 @@ For this study, we updated the functional annotation *P. calceolata* genes. We u
 ## Preparation of the protein file to annotate
 Unique name ended by _P if it's a predicted protein _1 _2,...or _6 if it is a translation (in full with X instead of "*").
 
-```
+```bash
 perl -ne 'chomp;if($_=~/^>/){$_.="_P"}; 's/\\*//g' ; print "$_\n"' Pelagomonas_calceolata.pep.fa > Pelagomonas_calceolata.pep.rename.fa
 ```
 Translation in the 6 frames in full for all gene models with emboss/6.6.0 (https://emboss.sourceforge.net/)
-```
+```bash
 transeq -frame 6 -trim -clean -sequence Pelagomonas_calceolata_gene-models.fa -outseq Pelagomonas_calceolata_gene-models_6frametranslation.fa
 cat Pelagomonas_calceolata_gene-models_6frametranslation.fa Pelagomonas_calceolata.pep.rename.fa > Pelago_AllProt.fa
 ```
@@ -22,7 +22,7 @@ cat Pelagomonas_calceolata_gene-models_6frametranslation.fa Pelagomonas_calceola
 ## interproscan version 5.61.93.0 
 Approximately 4h for 2000 protein sequences with 36 CPUs  
 
-```
+```bash
 mkdir Pelago_interpro
 cd Pelago_interpro
 interproscan -cpu 36 -t p --tempdir temp-interpro -dp -goterms -i ../Pelago_AllProt.fa -f TSV -o Pelago_AllProt.interpro.tsv
@@ -33,7 +33,7 @@ cd ../
 ## Diamond blastp v 2.1.2 with NR database (24_08_2023)
 Approximately 2h for 2000 sequences with 24 CPUs
 
-```
+```bash
 mkdir Pelago_diamond/
 cd Pelago_diamond/
 diamond blastp --query ../Pelago_AllProt.fa --db nr.dmnd --outfmt 6 --evalue 0.00001 --unal 0 --out Pelago_AllProt.diamondnr.tsv --threads 12
@@ -46,7 +46,7 @@ Approximatively 1h for 100,000 proteins with 12 cpu)
 kegg database : ftp://ftp.genome.jp:21/pub/db/kofam/ko_list.gz  
 kegg profiles : ftp://ftp.genome.jp:21/pub/db/kofam/profiles.tar.gz  
 
-```
+```bash
 tar -xvzf profiles.tar.gz
 gzip ko_list.gz
 mkdir Pelago_kofamscan/
@@ -58,7 +58,7 @@ cd ../
 ## EggNog-mapper version 2.1.12
 Approximatively 1h for 110,000 proteins with 36 cpu and 100G of memory  
 
-```
+```bash
 mkdir PelagoV4_EggNog
 cd PelagoV4_EggNog
 emapper.py --dbmem --cpu 36 -m diamond  --sensmode very-sensitive --no_file_comments -i ../Pelago_AllProt.fa -o Pelago_AllProt_eggnog
@@ -68,7 +68,7 @@ cd ../
 ## DeepLoc version 2  for protein subcellular localization
 Approximatively 1 minute for 10 proteins with 1 CPU and 15G of memory  
 
-```
+```bash
 mkdir PelagoV4_DeepLoc2
 cd PelagoV4_DeepLoc2
 deeploc2 -m Accurate -f ../Pelago_AllProt.fa -o Pelago_AllProt_DeepLocAccurate.csv;done
@@ -76,7 +76,7 @@ cd ../
 ```
 ## TargetP version 2 for protein subcellular localization based on signal peptides
 
-```
+```bash
 mkdir PelagoV4_TargetP
 cd PelagoV4_TargetP
 targetp -fasta Pelago_AllProt.fa -org pl -format short -prefix Pelago_AllProt -batch 1000
@@ -87,6 +87,6 @@ perl script in this directory: FuncAnnotConcatenation.pl.
 If functional annotations are identified on several frames, the frame with the best score is retained.  
 kegg Brite hierarchy is available here https://www.kegg.jp/kegg/download/ 
 
-```
+```bash
 perl FuncAnnotConcatenation.pl -interpro Pelago_interpro/Pelago_AllProt.interpro_full.tsv -nr Pelago_diamond/Pelago_AllProt.diamondnr.bestmatch.tsv -nrDB nr -kofam Pelago_kofamscan/Pelago_AllProt.kofamscan.tsv -eggnog Pelago_EggNog/Pelago_AllProt_eggnog.emapper.annotations -keggHierarchy KO_Network.keg -deeploc Pelago_DeepLoc2/Pelago_AllProt_DeepLocAccurate.csv -targetp Pelago_TargetP/Pelago_AllProt_summary.targetp2 -out Pelago_AllProt.annotConcat
 ```
