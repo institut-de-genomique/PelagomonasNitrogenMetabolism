@@ -1,7 +1,7 @@
 # Figure 3  
 This directory contains the files and scripts to generate Figure 3 of the article.  
-Input files are :  
-Cell count for P. calceolata _RCC100_ in 3 different conditions in triplicates : GrowthCyanateAxenic.tsv  in this directory
+Input file is :  
+Cell count for *P. calceolata _RCC100* in 3 different conditions in triplicates : GrowthCyanateAxenic.tsv  in this directory
 
 The following code was executed on R version 4.1.1
 
