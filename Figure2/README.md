@@ -2,7 +2,8 @@
 This directory contains the files and scripts to generate Figure 2 of the article.  
 Input files are :  
 Gene expression levels of P. calceolata RCC100 and RCC697 in different nitrate conditions : https://zenodo.org/uploads/12582059  
-Metadata associated to transcriptomes of RCC100 : metadata_transcriptomic_RCC100_nitrogen.tab in this directory  
+Metadata associated to transcriptomes of RCC100 : 
+metadata_transcriptomic_RCC100-RCC697_nitrogen.tsv in this directory  
 
 The following code is executed on R version 4.1.1  
 
@@ -24,7 +25,8 @@ Differentially expressed genes of _P. calceolata_ RCC100 in 441 µM (A) and 220 
 ```r
 #for A and B
 transcriptomic_count_RCC100_nitrogen <- read.table("20230427_RCC100-Nitrate_transcriptomes_rawcounts.tsv")
-metadata <- read.table("metadata_transcriptomic_RCC100_nitrogen.tab")
+metadata <- read.table("
+metadata_transcriptomic_RCC100-RCC697_nitrogen.tsv")
 #for C and D
 results_RCC697_200 <- read.table("results_RCC697_200.tab")
 results_RCC697_50 <- read.table("results_RCC697_50.tab")
