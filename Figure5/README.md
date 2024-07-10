@@ -33,6 +33,7 @@ results_RCC100_tara <- read.table(file="~/pelago/scratch/Pelago_Tara_analysis/me
 ## Formating the data
 
 ### Add prefix with strain+condition to each column, in each dataframe
+```r
 colnames(results_RCC100_400) <- paste0("RCC100-400_", colnames(results_RCC100_400))
 colnames(results_RCC100_200) <- paste0("RCC100-200_", colnames(results_RCC100_200))
 colnames(results_RCC100_Ammonium) <- paste0("RCC100-Ammonium_", colnames(results_RCC100_Ammonium))
@@ -41,31 +42,36 @@ colnames(results_RCC100_Cyanate) <- paste0("RCC100-Cyanate_", colnames(results_R
 colnames(results_RCC697_200) <- paste0("RCC697-200_", colnames(results_RCC697_200))
 colnames(results_RCC697_50) <- paste0("RCC697-50_", colnames(results_RCC697_50))
 colnames(results_RCC100_tara) <- paste0("RCC100-env_", colnames(results_RCC100_tara))
+```
 
 ### Binding RCC100 results together, same for RCC697
+```r
 results_RCC100 <- cbind(results_RCC100_400,results_RCC100_200,results_RCC100_Ammonium,results_RCC100_Urea,results_RCC100_Cyanate)
 results_RCC697 <- cbind(results_RCC697_200,results_RCC697_50)
 #### RCC100 : 16518 rows, 10 columns  /  RCC697 : 14214 rows, 4 columns (3 genes are not in RCC100 results)
+```
 
 ### Merge RCC100 results with RCC697 and Tara results
+```r
 results_RCC100_RCC697 <- merge(results_RCC100, results_RCC697, by="row.names", all.x=T, all.y=T) # 16521 rows, 15 columns
 results_RCC100_RCC697 <- merge(results_RCC100_RCC697, results_RCC100_tara, by.x="Row.names", by.y="row.names", all.x=T, all.y=T) # 16521 rows, 17 columns
+```
 
 ### Simplify colnames
+```r
 colnames(results_RCC100_RCC697) <- sub("log2FoldChange", "L2FC", colnames(results_RCC100_RCC697))
 colnames(results_RCC100_RCC697)[colnames(results_RCC100_RCC697) == "Row.names"] <- "Gene"
-
+```
 
 ## Merging with interesting genes table
-
+```r
 table0 <- merge(interesting_genes, results_RCC100_RCC697, by="Gene", all.x=F, all.y=F) # 52 rows, 17 columns
-
-### Replace NA by 0
+# Replace NA by 0
 table0[is.na(table0)] <- 0
+```
 
-
-## Reshape heatmap data
-
+## Reshaping heatmap data
+```
 table0_melted <- table0 %>%
   pivot_longer(cols = -c("Gene", "Gene.name", "Function"),
                names_to = c("sample", ".value"), # only works with no majuscules
@@ -81,11 +87,11 @@ table0_melted <- table0_melted %>%
 
 ### Clustering to order columns
 table0_melted[["sample"]] <- factor(table0_melted[["sample"]],levels=c("RCC100-env","RCC697-200","RCC697-50","RCC100-400","RCC100-200","RCC100-Ammonium","RCC100-Cyanate","RCC100-Urea"))
-
+```
 
 ## Generating the heatmap
-
-### Heatmap with ggplot2
+```r
+# Heatmap with ggplot2
 heatmap_tab1 <- ggplot(data = table0_melted, aes(x=sample, y=Gene, fill=L2FC, label=label)) +
   geom_tile() +
   scale_fill_gradient2(low = "blue", high = "red", mid="white") +
@@ -100,6 +106,5 @@ heatmap_tab1 <- ggplot(data = table0_melted, aes(x=sample, y=Gene, fill=L2FC, la
         legend.key.width = unit(0.2, 'cm'), #change legend key width
         legend.title = element_text(size=7), #change legend title font size
         legend.text = element_text(size=6)) #change legend text font size
-
 heatmap_tab1
-
+```
