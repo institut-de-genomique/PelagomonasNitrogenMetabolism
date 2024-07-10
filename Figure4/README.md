@@ -1,6 +1,9 @@
 # Figure 4
 Figure 4 shows the transcriptomic response of P. calceolata RCC100 cultivated with different nitrogen compounds. Following codes generates MA-plot and Venn diagram from transciptomic table for RCC100.
 
+20230427_RCC100-Nitrate_transcriptomes_rawcounts.tsv is available here : https://zenodo.org/records/12582059  
+metadata_transcriptomic_RCC100-RCC697_nitrogen.tab is [here](https://github.com/institut-de-genomique/PelagomonasNitrogenMetabolism/blob/main/Figure2/metadata_transcriptomic_RCC100-RCC697_nitrogen.tsv) directory.  
+
 A, B, C) Differentially expressed genes in 882 µM of ammonium (B), 441 µM of urea (C) and 882 µM of cyanate (D) compared to 882 µM of nitrate. Genes with p-value < 0.01 and log2FC > 2 are coloured. 
 D left, Dright) Euler diagram of genes overexpressed (E) or under expressed (F) in at least one of the alternative nitrogen sources.  
 
@@ -16,9 +19,9 @@ library(erer)
 
 ## Input
 ```r
-transcriptomic_count_RCC100_nitrogen <- read.table("/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/transcriptomic_count_RCC100_nitrogen.tab")
+transcriptomic_count_RCC100_nitrogen <- read.table("20230427_RCC100-Nitrate_transcriptomes_rawcounts.tsv")
 
-metadata <- read.table("/env/cns/home/nguerin/projet_CNM/Articles/PelagoNitro/metadata_transcriptomic_RCC100_nitrogen.tab")
+metadata <- read.table("metadata_transcriptomic_RCC100-RCC697_nitrogen.tab")
 ```
 
 ## Treatment
