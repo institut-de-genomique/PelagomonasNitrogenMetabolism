@@ -1,7 +1,16 @@
 # Figure 5
 This directory contains the files and scripts to generate Figure 5 of the article : Heatmap with L2FC values on genes of interest.  
 Input files are :  
-The table of gene names known to be involved in Pelagomonas nitrogen cycle : https://zenodo.org/uploads/12582059 !!!  
+- Table of gene names known to be involved in Pelagomonas nitrogen cycle : ! insert zenodo here !
+- Table of RCC100 DESeq2 results (441µM vs 882µM Nitrate) :
+- Table of RCC100 DESeq2 results (220µM vs 882µM Nitrate) :
+- Table of RCC100 DESeq2 results (882µM Ammonium vs 882µM Nitrate) :
+- Table of RCC100 DESeq2 results (882µM Cyanate vs 882µM Nitrate) :
+- Table of RCC100 DESeq2 results (441µM Urea vs 882µM Nitrate) :
+- Table of RCC697 DESeq2 results (220µM vs 882µM Nitrate) :
+- Table of RCC697 DESeq2 results (50µM vs 882µM Nitrate) :
+- Table of RCC100 from Tara Oceans DESeq2 results (<2μM vs >2μM) :
+
 
 The following code is executed on R version 4.1.1  
 
