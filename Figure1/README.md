@@ -2,7 +2,7 @@
 This directory contains the files and scripts to generate Figure 1 of the article.   
 Input files are :  
 - Gene expression levels of *Pelagomonas calceolata* RCC100 in Tara samples : https://zenodo.org/records/6983365  
-- Abundance of *Pelagomonas calceolata* RCC100 in Tara Oceans samples : PelagoV4_metaG_relative_abundance.tab  in this directory  
+- Abundance of *Pelagomonas calceolata* RCC100 in Tara Oceans samples : Pelagomonas_metaG_relative_abundance.tab  in this directory  
 - Metadata of Tara Oceans expedition : Environmental_metadata.tab in this directory  
 - Coordinates of Tara Oceans stations : TaraCoord.txt in this direcory  
 - Coordinates of Tara Pacific stations : Coordinates_islands_TO-TP.txt 
@@ -109,7 +109,7 @@ tab
 tab$Sample_bis <-gsub('.{2}$', '', tab$Names)
 
 #loading metagenomic relative abundance data (from Guérin et al. 2020)
-relative_abundance <- read.table("PelagoV4_metaG_relative_abundance.tab", header=T)
+relative_abundance <- read.table("Pelagomonas_metaG_relative_abundance.tab", header=T)
 
 #for Tara Oceans samples, extracting sample label 
 relative_abundance$Sample_label <- gsub('.{2}$', '', relative_abundance$Sample_bis)
