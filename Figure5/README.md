@@ -1,7 +1,7 @@
 # Figure 5
 This directory contains the files and scripts to generate Figure 5 of the article : Heatmap with L2FC values on genes of interest.  
 Input files are :  
-- Table of gene names known to be involved in Pelagomonas nitrogen cycle : ! insert zenodo here !
+- Table of gene names known to be involved in Pelagomonas nitrogen cycle : gene_list.txt in this directory.
 - Table of RCC100 DESeq2 results (441µM vs 882µM Nitrate) :
 - Table of RCC100 DESeq2 results (220µM vs 882µM Nitrate) :
 - Table of RCC100 DESeq2 results (882µM Ammonium vs 882µM Nitrate) :
@@ -24,24 +24,24 @@ library(tidyverse)
 
 ##### Retrieving our genes of interest (our 53 genes involved in the nitrogen cycle)
 ```r
-interesting_genes <- read.table("/env/cns/home/cseyman/Mes Documents/gene_list.txt", sep = "\t", header=T)
+interesting_genes <- read.table("gene_list.txt", sep = "\t", header=T)
 ```
 
 ##### Retrieving Log2 Fold Changes (L2FC) and ajusted p-values (padj) from DESeq2 results
 ```r
 ##### RCC100
-results_RCC100_400 <- read.table(file="~/Mes Documents/Transcriptomique_RCC100/results_RCC100_400", sep = "\t", header=T)[,c(2,5)]
-results_RCC100_200 <- read.table(file="~/Mes Documents/Transcriptomique_RCC100/results_RCC100_200", sep = "\t", header=T)[,c(2,5)]
-results_RCC100_Ammonium <- read.table(file="~/Mes Documents/Transcriptomique_RCC100/results_RCC100_Ammonium", sep = "\t", header=T)[,c(2,5)]
-results_RCC100_Cyanate <- read.table(file="~/Mes Documents/Transcriptomique_RCC100/results_RCC100_Cyanate", sep = "\t", header=T)[,c(2,5)]
-results_RCC100_Urea <- read.table(file="~/Mes Documents/Transcriptomique_RCC100/results_RCC100_Urea", sep = "\t", header=T)[,c(2,5)]
+results_RCC100_400 <- read.table(file="results_RCC100_400", sep = "\t", header=T)[,c(2,5)]
+results_RCC100_200 <- read.table(file="results_RCC100_200", sep = "\t", header=T)[,c(2,5)]
+results_RCC100_Ammonium <- read.table(file="results_RCC100_Ammonium", sep = "\t", header=T)[,c(2,5)]
+results_RCC100_Cyanate <- read.table(file="results_RCC100_Cyanate", sep = "\t", header=T)[,c(2,5)]
+results_RCC100_Urea <- read.table(file="esults_RCC100_Urea", sep = "\t", header=T)[,c(2,5)]
 
 ##### RCC697
-results_RCC697_200 <- read.table(file="~/Mes Documents/Transcriptomique_RCC697/results_RCC697_200", sep = "\t", header=T)[,c(2,5)]
-results_RCC697_50 <- read.table(file="~/Mes Documents/Transcriptomique_RCC697/results_RCC697_50", sep = "\t", header=T)[,c(2,5)]
+results_RCC697_200 <- read.table(file="results_RCC697_200", sep = "\t", header=T)[,c(2,5)]
+results_RCC697_50 <- read.table(file="results_RCC697_50", sep = "\t", header=T)[,c(2,5)]
 
 #### Environment
-results_RCC100_tara <- read.table(file="~/pelago/scratch/Pelago_Tara_analysis/metaT_analyses/R_analysis/DEG_nitrate_envi_complete.tab", sep = "\t", header=T)[,c(2,6)]
+results_RCC100_tara <- read.table(file="DEG_nitrate_envi_complete.tab", sep = "\t", header=T)[,c(2,6)]
 ```
 
 ## Formating the data
