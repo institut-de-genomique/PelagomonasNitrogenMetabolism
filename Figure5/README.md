@@ -9,7 +9,7 @@ Input files are :
 - Table of RCC100 DESeq2 results (441µM Urea vs 882µM Nitrate) :
 - Table of RCC697 DESeq2 results (220µM vs 882µM Nitrate) :
 - Table of RCC697 DESeq2 results (50µM vs 882µM Nitrate) :
-- Table of RCC100 from Tara Oceans DESeq2 results (<2μM vs >2μM) :
+- Table of RCC100 from Tara Oceans DESeq2 results (<2μM vs >2μM Nitrate) :
 
 
 The following code is executed on R version 4.1.1  
