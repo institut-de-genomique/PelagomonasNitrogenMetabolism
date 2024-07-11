@@ -23,17 +23,22 @@ Differentially expressed genes of _P. calceolata_ RCC100 in 441 µM (A) and 220 
 
 ### Input
 ```r
-#for A to D
+## For A to D
 metadata <- read.table("metadata_transcriptomic_RCC100-RCC697_nitrogen.tsv")
-#for A and B
+
+## For A and B
 transcriptomic_count_RCC100_nitrogen <- read.table("20230427_RCC100-Nitrate_transcriptomes_rawcounts.tsv")
-#for C and D
-transcriptomic_count_RCC697_nitrogen <- read.table("20230427_RCC697-Nitrate_transcriptomes_rawcounts.tsv") #import the raw counts
-colnames(transcriptomic_count_RCC697_nitrogen) <- transcriptomic_count_RCC697_nitrogen[1,] #define colnames and rownames
+
+## For C and D
+#import the raw counts
+transcriptomic_count_RCC697_nitrogen <- read.table("20230427_RCC697-Nitrate_transcriptomes_rawcounts.tsv")
+#define colnames and rownames
+colnames(transcriptomic_count_RCC697_nitrogen) <- transcriptomic_count_RCC697_nitrogen[1,]
 transcriptomic_count_RCC697_nitrogen <- transcriptomic_count_RCC697_nitrogen[-1,] 
 rownames(transcriptomic_count_RCC697_nitrogen) <- transcriptomic_count_RCC697_nitrogen$Gene
 transcriptomic_count_RCC697_nitrogen <- transcriptomic_count_RCC697_nitrogen[,-1]
-transcriptomic_count_RCC697_nitrogen[] <- lapply(transcriptomic_count_RCC697_nitrogen, as.integer) #convert character type into integer one
+#convert character type into integer one
+transcriptomic_count_RCC697_nitrogen[] <- lapply(transcriptomic_count_RCC697_nitrogen, as.integer)
 ```
 ### Figure 2A
 ```
