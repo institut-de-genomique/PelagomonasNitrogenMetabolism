@@ -16,7 +16,7 @@ library(tidyverse)
 
 ##### Retrieve our genes of interest (our 53 genes involved in the nitrogen cycle)
 ```r
-interesting_genes <- read.table("gene_list.txt", sep = "\t", header=T)
+selected_genes <- read.table("gene_list.txt", sep = "\t", header=T)
 ```
 
 ##### Retrieve Log2 Fold Changes (L2FC) and ajusted p-values (padj) from DESeq2 results
@@ -68,9 +68,9 @@ colnames(results_RCC100_RCC697) <- sub("log2FoldChange", "L2FC", colnames(result
 colnames(results_RCC100_RCC697)[colnames(results_RCC100_RCC697) == "Row.names"] <- "Gene"
 ```
 
-## Merge with interesting genes table
+## Merge with selected genes table
 ```r
-table0 <- merge(interesting_genes, results_RCC100_RCC697, by="Gene", all.x=F, all.y=F) # 52 rows, 17 columns
+table0 <- merge(selected_genes, results_RCC100_RCC697, by="Gene", all.x=F, all.y=F) # 52 rows, 17 columns
 # Replace NA by 0
 table0[is.na(table0)] <- 0
 ```
