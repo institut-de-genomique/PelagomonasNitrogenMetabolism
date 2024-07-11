@@ -20,14 +20,14 @@ library(reshape2)
 library(tidyverse)
 ```
 
-## Loading the data
+## Load the data
 
-##### Retrieving our genes of interest (our 53 genes involved in the nitrogen cycle)
+##### Retrieve our genes of interest (our 53 genes involved in the nitrogen cycle)
 ```r
 interesting_genes <- read.table("gene_list.txt", sep = "\t", header=T)
 ```
 
-##### Retrieving Log2 Fold Changes (L2FC) and ajusted p-values (padj) from DESeq2 results
+##### Retrieve Log2 Fold Changes (L2FC) and ajusted p-values (padj) from DESeq2 results
 ```r
 ##### RCC100
 results_RCC100_400 <- read.table(file="results_RCC100_400", sep = "\t", header=T)[,c(2,5)]
@@ -44,7 +44,7 @@ results_RCC697_50 <- read.table(file="results_RCC697_50", sep = "\t", header=T)[
 results_RCC100_tara <- read.table(file="DEG_nitrate_envi_complete.tab", sep = "\t", header=T)[,c(2,6)]
 ```
 
-## Formating the data
+## Format the data
 ##### Add prefix with strain+condition to each column, in each dataframe
 ```r
 colnames(results_RCC100_400) <- paste0("RCC100-400_", colnames(results_RCC100_400))
@@ -57,7 +57,7 @@ colnames(results_RCC697_50) <- paste0("RCC697-50_", colnames(results_RCC697_50))
 colnames(results_RCC100_tara) <- paste0("RCC100-env_", colnames(results_RCC100_tara))
 ```
 
-##### Binding RCC100 results together, same for RCC697
+##### Bind RCC100 results together, same for RCC697
 ```r
 results_RCC100 <- cbind(results_RCC100_400,results_RCC100_200,results_RCC100_Ammonium,results_RCC100_Urea,results_RCC100_Cyanate)
 results_RCC697 <- cbind(results_RCC697_200,results_RCC697_50)
@@ -76,14 +76,14 @@ colnames(results_RCC100_RCC697) <- sub("log2FoldChange", "L2FC", colnames(result
 colnames(results_RCC100_RCC697)[colnames(results_RCC100_RCC697) == "Row.names"] <- "Gene"
 ```
 
-## Merging with interesting genes table
+## Merge with interesting genes table
 ```r
 table0 <- merge(interesting_genes, results_RCC100_RCC697, by="Gene", all.x=F, all.y=F) # 52 rows, 17 columns
 # Replace NA by 0
 table0[is.na(table0)] <- 0
 ```
 
-## Reshaping heatmap data
+## Reshape heatmap data
 ```r
 table0_melted <- table0 %>%
   pivot_longer(cols = -c("Gene", "Gene.name", "Function"),
@@ -99,12 +99,12 @@ table0_melted <- table0_melted %>%
     padj >= 0.01 ~ "",
     TRUE ~ ""))
 ```
-##### Clustering to order columns
+##### Cluster to order columns
 ```r
 table0_melted[["sample"]] <- factor(table0_melted[["sample"]],levels=c("RCC100-env","RCC697-200","RCC697-50","RCC100-400","RCC100-200","RCC100-Ammonium","RCC100-Cyanate","RCC100-Urea"))
 ```
 
-## Generating the heatmap
+## Generate the heatmap
 ```r
 # Heatmap with ggplot2
 heatmap_tab1 <- ggplot(data = table0_melted, aes(x=sample, y=Gene, fill=L2FC, label=label)) +
