@@ -1,0 +1,54 @@
+Gene	Gene name	Function
+Pca_2p10630	NRT2	Nitrate nitrite transporter
+Pca_2p27760	NRT2	Nitrate nitrite transporter
+Pca_2p31470	NRT2	Nitrate nitrite transporter
+Pca_1p20650	FNT	Formate nitrite transporter
+Pca_2p00350	FNT	Formate nitrite transporter
+Pca_4p09810	FNT	Formate nitrite transporter
+Pca_4p16880	FNT	Formate nitrite transporter
+Pca_1p08820	AMT	Ammonium transporter
+Pca_2p16510	AMT	Ammonium transporter
+Pca_4p23330	UT	Urea transporter
+Pca_4p09520	DUR3	Urea transporter
+Pca_5p16370	AMT	Ammonium transporter
+Pca_6p00630	AMT	Ammonium transporter
+Pca_6p05940	AMT	Ammonium transporter
+Pca_2p02240	NirB-NirD	Nitrite reductase
+Pca_4p19310	NirA	Nitrite reductase
+Pca_1p15820	NR	Nitrate reductase
+Pca_2p03910	Xan_ur_permease	Xanthin-Uric acid permease
+Pca_2p05120	UreD-UreF	Urease accessory protein
+Pca_2p05150	Urease	Urease
+Pca_4p25220	UreG	Urease accessory protein
+Pca_2p05090	UreG	Urease accessory protein
+Pca_6p12900	ARG	Urea cycle - Arginase
+Pca_3p16260	CYN	Cyanate lyase
+Pca_1p31590	NIT	Nitrate sensing
+Pca_2p03520	NIT	Nitrate sensing
+Pca_6p09320	NIT	Nitrate sensing
+Pca_1p07940	GSIII	Glutamine synthetase
+Pca_1p27820	GSIII	Glutamine synthetase
+Pca_2p07880	GSIII	Glutamine synthetase
+Pca_2p12040	GS	Glutamine synthetase
+Pca_5p20160	GS	Glutamine synthetase
+Pca_5p23600	GS	Glutamine synthetase
+Pca_1p08930	NADPH-GOGAT	Glutamate synthase
+Pca_2p12240	GOGAT	Glutamate synthase
+Pca_5p07200	Fd-GOGAT	Glutamate synthase
+Pca_5p22300	NADPH-GOGAT	Glutamate synthase
+Pca_2p09950	CPS	Urea cycle - Carbamoyl phosphate synthetase
+Pca_3p22990	CPS	Urea cycle - Carbamoyl phosphate synthetase
+Pca_1p14490	OCT	Urea cycle - Ornithine carbamoyltransferase
+Pca_3p14120	OCT	Urea cycle - Ornithine carbamoyltransferase
+Pca_4p01540	ASL	Urea cycle - Argininosuccinate lyase
+Pca_5p06610	ASS	Urea cycle - Argininosuccinate synthase
+Pca_2p05890	XDH	Xanthin dehydrogenase oxidase
+Pca_3p19790	other	Other
+Pca_2p01710	other	Other
+Pca_1p27950	other	Other
+Pca_6p05430	CT	Carbamoyltransferase
+Pca_6p05480	CT	Carbamoyltransferase
+Pca_6p05520	CT	Carbamoyltransferase
+Pca_6p05580	CT	Carbamoyltransferase
+Pca_6p08530	CT	Carbamoyltransferase
+Pca_5p15040	CK	Carbamate kinase
