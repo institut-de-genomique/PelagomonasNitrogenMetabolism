@@ -196,7 +196,7 @@ figure_2E_output =
     RCC100_800_vs_400_µM = c(rownames(up_DEG_400), rownames(down_DEG_400))
   )
 
-####Number of gene for : 
+####Number of genes for : 
 ##up-regulated in both condition
 nrow(merge(up_DEG_400 , up_DEG_200, by="row.names", all=F))
 ##down-regulated in both condition
@@ -225,7 +225,7 @@ figure_2F_output =
     RCC697_800_vs_50_µM = c(rownames(up_DEG_50), rownames(down_DEG_50))
   )
 
-####Number of gene for : 
+####Number of genes for : 
 ##up-regulated in both condition
 nrow(merge(up_DEG_50 , up_DEG_200_697, by="row.names", all=F))
 ##down-regulated in both condition
