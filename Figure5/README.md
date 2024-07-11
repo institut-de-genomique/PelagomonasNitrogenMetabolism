@@ -2,15 +2,7 @@
 This directory contains the files and scripts to generate Figure 5 of the article : Heatmap with L2FC values on genes of interest.  
 Input files are :  
 - Table of gene names known to be involved in *Pelagomonas* nitrogen metabolism : gene_list.txt in this directory.
-- Table of RCC100 DESeq2 results (441µM vs 882µM Nitrate) :
-- Table of RCC100 DESeq2 results (220µM vs 882µM Nitrate) :
-- Table of RCC100 DESeq2 results (882µM Ammonium vs 882µM Nitrate) :
-- Table of RCC100 DESeq2 results (882µM Cyanate vs 882µM Nitrate) :
-- Table of RCC100 DESeq2 results (441µM Urea vs 882µM Nitrate) :
-- Table of RCC697 DESeq2 results (220µM vs 882µM Nitrate) :
-- Table of RCC697 DESeq2 results (50µM vs 882µM Nitrate) :
-- Table of RCC100 from Tara Oceans DESeq2 results (<2μM vs >2μM Nitrate) :
-
+- Tables of DESeq2 results for RCC100 and RCC697 : https://zenodo.org/records/12725931
 
 The following code is executed on R version 4.1.1  
 
@@ -30,15 +22,15 @@ interesting_genes <- read.table("gene_list.txt", sep = "\t", header=T)
 ##### Retrieve Log2 Fold Changes (L2FC) and ajusted p-values (padj) from DESeq2 results
 ```r
 ##### RCC100
-results_RCC100_400 <- read.table(file="results_RCC100_400", sep = "\t", header=T)[,c(2,5)]
-results_RCC100_200 <- read.table(file="results_RCC100_200", sep = "\t", header=T)[,c(2,5)]
-results_RCC100_Ammonium <- read.table(file="results_RCC100_Ammonium", sep = "\t", header=T)[,c(2,5)]
-results_RCC100_Cyanate <- read.table(file="results_RCC100_Cyanate", sep = "\t", header=T)[,c(2,5)]
-results_RCC100_Urea <- read.table(file="esults_RCC100_Urea", sep = "\t", header=T)[,c(2,5)]
+results_RCC100_400 <- read.table(file="DESeq-results_RCC100_Nitrate400", sep = "\t", header=T)[,c(2,5)]
+results_RCC100_200 <- read.table(file="DESeq-results_RCC100_Nitrate200", sep = "\t", header=T)[,c(2,5)]
+results_RCC100_Ammonium <- read.table(file="DESeq-results_RCC100_Ammonium", sep = "\t", header=T)[,c(2,5)]
+results_RCC100_Cyanate <- read.table(file="DESeq-results_RCC100_Cyanate", sep = "\t", header=T)[,c(2,5)]
+results_RCC100_Urea <- read.table(file="DESeq-results_RCC100_Urea", sep = "\t", header=T)[,c(2,5)]
 
 ##### RCC697
-results_RCC697_200 <- read.table(file="results_RCC697_200", sep = "\t", header=T)[,c(2,5)]
-results_RCC697_50 <- read.table(file="results_RCC697_50", sep = "\t", header=T)[,c(2,5)]
+results_RCC697_200 <- read.table(file="DESeq-results_RCC697_Nitrate200", sep = "\t", header=T)[,c(2,5)]
+results_RCC697_50 <- read.table(file="DESeq-results_RCC697_Nitrate50", sep = "\t", header=T)[,c(2,5)]
 
 #### Environment
 results_RCC100_tara <- read.table(file="DEG_nitrate_envi_complete.tab", sep = "\t", header=T)[,c(2,6)]
