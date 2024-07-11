@@ -23,13 +23,17 @@ Differentially expressed genes of _P. calceolata_ RCC100 in 441 µM (A) and 220 
 
 ### Input
 ```r
+#for A to D
+metadata <- read.table("metadata_transcriptomic_RCC100-RCC697_nitrogen.tsv")
 #for A and B
 transcriptomic_count_RCC100_nitrogen <- read.table("20230427_RCC100-Nitrate_transcriptomes_rawcounts.tsv")
-metadata <- read.table("
-metadata_transcriptomic_RCC100-RCC697_nitrogen.tsv")
 #for C and D
-results_RCC697_200 <- read.table("results_RCC697_200.tab")
-results_RCC697_50 <- read.table("results_RCC697_50.tab")
+transcriptomic_count_RCC697_nitrogen <- read.table("20230427_RCC697-Nitrate_transcriptomes_rawcounts.tsv") #import the raw counts
+colnames(transcriptomic_count_RCC697_nitrogen) <- transcriptomic_count_RCC697_nitrogen[1,] #define colnames and rownames
+transcriptomic_count_RCC697_nitrogen <- transcriptomic_count_RCC697_nitrogen[-1,] 
+rownames(transcriptomic_count_RCC697_nitrogen) <- transcriptomic_count_RCC697_nitrogen$Gene
+transcriptomic_count_RCC697_nitrogen <- transcriptomic_count_RCC697_nitrogen[,-1]
+transcriptomic_count_RCC697_nitrogen[] <- lapply(transcriptomic_count_RCC697_nitrogen, as.integer) #convert character type into integer one
 ```
 ### Figure 2A
 ```
@@ -107,6 +111,24 @@ top20_genes_2B <- figure_2B_output %>%
 ```
 ### Figure 2C
 ```r
+rawCountTable <- subset(transcriptomic_count_RCC697_nitrogen, select = c("NO3_800_R1", "NO3_800_R2", "NO3_800_R3", "NO3_200_R2", "NO3_200_R3"))
+
+#subset the metadata table
+sampleInfo <- metadata %>% dplyr::filter(Condition %in% c("NO3_800", "NO3_200"))
+
+#create DESeq2 object
+se_star_matrix <- DESeqDataSetFromMatrix(countData = rawCountTable,
+                                         colData = sampleInfo,
+                                         design = ~ Condition)
+#choose the control condition
+se_star_matrix$Condition <- relevel(se_star_matrix$Condition, ref = "NO3_800")
+
+#calculate DEG matrix
+dds <- DESeq(se_star_matrix)
+
+#shrink log2FC
+results_RCC697_200 <- lfcShrink(dds, coef=resultsNames(dds)[2], type = 'normal')
+
 figure_2C_output <- as.data.frame(results_RCC697_200)
 figure_2C_output <- mutate(figure_2C_output, regulation = case_when(log2FoldChange > 2 & padj < 0.01 ~ "upregulated"
                                             ,log2FoldChange < -2 & padj < 0.01 ~ "downregulated"))
@@ -122,6 +144,24 @@ top20_genes_2C
 
 ### Figure 2D  
 ```r
+rawCountTable <- subset(transcriptomic_count_RCC697_nitrogen, select = c("NO3_800_R1", "NO3_800_R2", "NO3_800_R3", "NO3_050_R1", "NO3_050_R2", "NO3_050_R3"))
+
+#subset the metadata table
+sampleInfo <- metadata %>% dplyr::filter(Condition %in% c("NO3_800", "NO3_50"))
+
+#create DESeq2 object
+se_star_matrix <- DESeqDataSetFromMatrix(countData = rawCountTable,
+                                         colData = sampleInfo,
+                                         design = ~ Condition)
+#choose the control condition
+se_star_matrix$Condition <- relevel(se_star_matrix$Condition, ref = "NO3_800")
+
+#calculate DEG matrix
+dds <- DESeq(se_star_matrix)
+
+#shrink log2FC
+results_RCC697_50 <- lfcShrink(dds, coef=resultsNames(dds)[2], type = 'normal')
+
 figure_2D_output <- as.data.frame(results_RCC697_50)
 figure_2D_output <- mutate(figure_2D_output, regulation = case_when(log2FoldChange > 2 & padj < 0.01 ~ "upregulated"
                                             ,log2FoldChange < -2 & padj < 0.01 ~ "downregulated"))
