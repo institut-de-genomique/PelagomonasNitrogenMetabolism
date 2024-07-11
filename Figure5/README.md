@@ -1,7 +1,7 @@
 # Figure 5
 This directory contains the files and scripts to generate Figure 5 of the article : Heatmap with L2FC values on genes of interest.  
 Input files are :  
-- Table of gene names known to be involved in Pelagomonas nitrogen metabolism : gene_list.txt in this directory.
+- Table of gene names known to be involved in *Pelagomonas* nitrogen metabolism : gene_list.txt in this directory.
 - Table of RCC100 DESeq2 results (441µM vs 882µM Nitrate) :
 - Table of RCC100 DESeq2 results (220µM vs 882µM Nitrate) :
 - Table of RCC100 DESeq2 results (882µM Ammonium vs 882µM Nitrate) :
