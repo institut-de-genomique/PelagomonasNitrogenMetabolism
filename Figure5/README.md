@@ -2,7 +2,7 @@
 This directory contains the files and scripts to generate Figure 5 of the article : Heatmap with L2FC values on genes of interest.  
 Input files are :  
 - Table of gene names known to be involved in *Pelagomonas* nitrogen metabolism : gene_list.txt in this directory.
-- Tables of DESeq2 results for RCC100 and RCC697 : https://zenodo.org/records/12725931
+- Tables of DESeq2 results for RCC100 and RCC697 : [https://zenodo.org/records/12726053]
 
 The following code is executed on R version 4.1.1  
 
