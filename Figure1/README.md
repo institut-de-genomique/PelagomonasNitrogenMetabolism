@@ -4,8 +4,7 @@ Input files are :
 - Gene expression levels of *Pelagomonas calceolata* RCC100 in Tara samples : https://zenodo.org/records/6983365  
 - Abundance of *Pelagomonas calceolata* RCC100 in Tara Oceans samples : Pelagomonas_metaG_relative_abundance.tab  in this directory  
 - Metadata of Tara Oceans expedition : Environmental_metadata.tab in this directory  
-- Coordinates of Tara Oceans stations : TaraCoord.txt in this direcory  
-- Coordinates of Tara Pacific stations : Coordinates_islands_TO-TP.txt 
+- Coordinates of Tara Pacific stations : Coordinates_TO-TP.txt 
 
 The following code was executed on R version 4.1.1
 
@@ -42,7 +41,7 @@ coord<-read.table("TaraCoord.txt",sep="\t",h=T,stringsAsFactors = F)
 tab <- merge(tab, coord[,c(1:5)], by.x="Sample_label", by.y="Stations", all = T)
 
 #loading additionnal coordinates from Tara Oceans
-coord<-read.table("Coordinates_islands_TO-TP.txt",sep="\t",h=T,stringsAsFactors = F)
+coord<-read.table("Coordinates_TO-TP.txt",sep="\t",h=T,stringsAsFactors = F)
 #Extracting station numbers
 tab$Station_number<- sub("\\D.*", "", tab$Sample_label)
 #merging metadata and coordinates
