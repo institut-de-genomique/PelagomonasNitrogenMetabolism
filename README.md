@@ -1,4 +1,4 @@
-# Nitrogen metabolism in the picoalga *Pelagomonas calceolata*: disentangling cyanate lyase function under different nutrient conditions  
+# Transcriptomic response of the picoalga Pelagomonas calceolata to nitrogen availability unveils the role of cyanate lyase
 
 Nina Guérin, Chloé Seyman and Quentin Carradec
 
